@@ -1,0 +1,74 @@
+{
+    "name": "IAA_Player",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "a373a31e-7ec8-45b8-bd74-e1a65c48b429",
+            "actions": [
+                {
+                    "name": "FirstLine",
+                    "type": "Button",
+                    "id": "c4777a93-b6e2-4aca-8441-50b7e2941fef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SecondLine",
+                    "type": "Button",
+                    "id": "6dddd89c-cc3d-49e7-b70f-dfc0cd57bdec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThirdLine",
+                    "type": "Button",
+                    "id": "f4d67f22-1239-439e-af30-eb732e195bed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "96c6b65b-45d7-4da0-af5a-1dde0ceb5873",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FirstLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80cc2da9-d0a2-4a20-aecc-18a10bf9c547",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3808d16b-ae9e-46c0-8bfe-dc26f1c604df",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThirdLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
