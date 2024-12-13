@@ -1,3 +1,4 @@
+using TreeEditor;
 using UnityEngine;
 
 public class CircEaseInComponent : MovingComponent
@@ -20,6 +21,14 @@ public class CircEaseInComponent : MovingComponent
 
     public override void Interpolate()
     {
-        
+
+
+        float _t = Mathf.Clamp01(currentTimer / maxTimer);
+        float _eased =  1 - Mathf.Sqrt(1 - Mathf.Pow(_t, 2));
+
+        Vector3 _nextPos = transform.forward * rMoveSpeed * _eased;
+
+        transform.position += new Vector3(_nextPos.x, 0, _nextPos.z);
+
     }
 }
