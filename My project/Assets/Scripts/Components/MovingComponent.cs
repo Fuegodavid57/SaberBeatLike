@@ -3,9 +3,9 @@ using UnityEngine;
 
 public abstract class MovingComponent : MonoBehaviour
 {
-    [SerializeField] [Range(0,5000)] protected float minMovementSpeed = 5.0f, maxMovementSpeed = 5.0f;
-    [SerializeField] [Range(0,2)] protected float minDist = 2.0f; // min dist for IsAtLocaiton
+    [SerializeField][Range(0, 5000)] protected float minMovementSpeed = 1.0f, maxMovementSpeed = 5.0f;
     [SerializeField] protected float maxTimer = 5.0f; // maxTimer for curve
+    [SerializeField] protected Vector3 movingDir = Vector3.forward; // maxTimer for curve
 
     protected float currentTimer = 0.0f;
     protected float rMoveSpeed = 0.0f;
@@ -13,6 +13,7 @@ public abstract class MovingComponent : MonoBehaviour
     protected virtual void Start()
     {
         Init();
+        Destroy(gameObject, maxTimer);
     }
 
     protected virtual void Update()
@@ -34,12 +35,7 @@ public abstract class MovingComponent : MonoBehaviour
     protected virtual void UpdateTime()
     {
         currentTimer += Time.deltaTime;
-        if(currentTimer >= maxTimer) currentTimer = 0.0f;
-    }
-
-    private void OnDestroy()
-    {
-        //TO DO events on destroy
+        if (currentTimer >= maxTimer) currentTimer = 0.0f;
     }
 
     abstract public void Interpolate(); // Move By the Curve

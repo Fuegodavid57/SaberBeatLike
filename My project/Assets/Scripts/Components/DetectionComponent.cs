@@ -1,10 +1,19 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum HIT_TYPE
+{
+    PERFECT,
+    AVERAGE,
+    MISS
+};
+
 public class DetectionComponent : MonoBehaviour
 {
+    public event Action<HIT_TYPE> OnHit;
     [SerializeField] Vector3 size = new Vector3(1, 1, 1);
     [SerializeField] float minDistPerfect = 0.2f, minDistAverage = 0.5f;
     [SerializeField] LayerMask mask;
@@ -25,6 +34,11 @@ public class DetectionComponent : MonoBehaviour
     public void Detect(InputAction.CallbackContext _context)
     {
         RaycastHit[] _perfecthits = Physics.BoxCastAll(transform.position, size, transform.up, transform.rotation, mask);
+        if(_perfecthits.Length == 0)
+        {
+            OnHit?.Invoke(HIT_TYPE.MISS);
+            return;
+        }
         Check(_perfecthits);
     }
 
@@ -34,14 +48,14 @@ public class DetectionComponent : MonoBehaviour
         int _size = _hits.Length;
         for (int _i = 0; _i < _size; _i++)
         {
-            if (DistanceCheck(_hits[_i].transform.position, minDistPerfect))
+            HIT_TYPE _type = DistanceCheck(_hits[_i].transform.position, minDistPerfect) ? HIT_TYPE.PERFECT :
+                DistanceCheck(_hits[_i].transform.position, minDistAverage) ? HIT_TYPE.AVERAGE : HIT_TYPE.MISS;
+
+            if (_type != HIT_TYPE.MISS)
             {
-                Debug.Log("perfect hit");
+                Destroy(_hits[_i].collider.gameObject);
             }
-            else if (DistanceCheck(_hits[_i].transform.position, minDistAverage))
-            {
-                Debug.Log("average hit");
-            }
+            OnHit?.Invoke(_type);
         }
     }
 
@@ -52,11 +66,11 @@ public class DetectionComponent : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, size);
+        //Gizmos.DrawLine(transform.position, transform.position + transform.forward * minDistAverage);
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * minDistAverage);
+        //Gizmos.DrawLine(transform.position, transform.position + transform.forward * minDistPerfect);
+        Gizmos.DrawWireSphere(transform.position, minDistPerfect);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * minDistPerfect);
+        Gizmos.DrawWireSphere(transform.position, minDistAverage);
     }
 }

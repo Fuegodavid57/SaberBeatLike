@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour, IManageable<string>
@@ -9,6 +10,7 @@ public class Spawner : MonoBehaviour, IManageable<string>
     [SerializeField] bool canSpawn = true;
     [SerializeField] float currentTime = 0f, maxTime = 0f;
     [SerializeField] float minRange = 0.5f, maxRange = 1.5f;
+    [SerializeField] List<GameObject> prefabs;
     public string ID => id;
 
     public bool IsValidItem => throw new System.NotImplementedException();
@@ -70,6 +72,9 @@ public class Spawner : MonoBehaviour, IManageable<string>
             canSpawn = false;
             return;
         }
+
+        int _index = UnityEngine.Random.Range(0, prefabs.Count);
+        GameObject _go = Instantiate(prefabs[_index], transform.position, transform.rotation);
         OnSpawned?.Invoke();
     }
 }
