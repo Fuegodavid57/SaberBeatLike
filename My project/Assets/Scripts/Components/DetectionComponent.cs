@@ -34,10 +34,9 @@ public class DetectionComponent : MonoBehaviour
     public void Detect(InputAction.CallbackContext _context)
     {
         RaycastHit[] _perfecthits = Physics.BoxCastAll(transform.position, size, transform.up, transform.rotation, mask);
-        if(_perfecthits.Length == 0)
+        if(_perfecthits.Length == 0 )
         {
             OnHit?.Invoke(HIT_TYPE.MISS);
-            return;
         }
         Check(_perfecthits);
     }
@@ -68,9 +67,10 @@ public class DetectionComponent : MonoBehaviour
     {
         //Gizmos.DrawLine(transform.position, transform.position + transform.forward * minDistAverage);
         Gizmos.color = Color.green;
-        //Gizmos.DrawLine(transform.position, transform.position + transform.forward * minDistPerfect);
-        Gizmos.DrawWireSphere(transform.position, minDistPerfect);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, minDistAverage);
+        Gizmos.DrawWireCube(transform.position, size);
+        ////Gizmos.DrawLine(transform.position, transform.position + transform.forward * minDistPerfect);
+        //Gizmos.DrawWireSphere(transform.position, minDistPerfect);
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(transform.position, minDistAverage);
     }
 }

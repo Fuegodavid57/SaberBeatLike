@@ -9,14 +9,13 @@ public class ScoreComponent : MonoBehaviour
     [SerializeField] float perfectScore = 500.0f;
     [SerializeField] float averageScore = 100.0f;
     [SerializeField] float missScore = 50.0f;
-    void Start()
-    {
-        Init();
-    }
-    void Init()
-    {
-        RetriveMaxScore();
-    }
+
+
+    public float Score => score;
+    public float MaxScore => maxScore;
+    public float PerfectScore => perfectScore;
+    public float AverageScore => averageScore;
+    public float MissScore => missScore;
 
     public void UpdateScore(HIT_TYPE _hit)
     {
@@ -37,9 +36,10 @@ public class ScoreComponent : MonoBehaviour
         OnScoreChange?.Invoke(score * 100 / maxScore);
     }
 
-    void RetriveMaxScore()
+    public float RetriveMaxScore()
     {
         int _gameObjectCount = SpawnerManager.Instance.GameObjectCount;
         maxScore = _gameObjectCount * perfectScore;
+        return maxScore;
     }
 }
